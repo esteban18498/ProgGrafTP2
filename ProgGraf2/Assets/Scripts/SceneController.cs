@@ -8,9 +8,6 @@ using UnityEngine.Events;
 
 public class SceneController : Singleton<SceneController>
 {
-    [Header("Configuración de Escenas")]
-    [Tooltip("Lista los nombres de las escenas tal cual aparecen en Build Settings")]
-    public List<string> sceneNames;
 
     [Header("Referencias")]
     public Animator transitionAnimator;
@@ -27,6 +24,7 @@ public class SceneController : Singleton<SceneController>
     void OnEnable()
     {
         DontDestroyOnLoad(transitionAnimator.gameObject);
+        sceneNameText.text = SceneManager.GetActiveScene().name;
     }
 
     private void Update()
@@ -48,7 +46,10 @@ public class SceneController : Singleton<SceneController>
         }
         else
         {
-            Debug.LogWarning("No hay más escenas en el Build Settings.");
+         //   Debug.LogWarning("No hay más escenas en el Build Settings.");
+         //   Debug.LogWarning("Looping");
+            StartCoroutine(LoadSceneAsync(0));
+
         }
     }
 
@@ -89,7 +90,9 @@ public class SceneController : Singleton<SceneController>
 
         OnLoadFinished?.Invoke();
         isTransitioning = false;
-        
-        sceneNameText.text = sceneNames[index];
+
+
+
+        sceneNameText.text = SceneManager.GetActiveScene().name;
     }
 }
