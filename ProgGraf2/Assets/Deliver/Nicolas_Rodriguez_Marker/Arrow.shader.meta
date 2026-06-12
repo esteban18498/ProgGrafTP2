@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: bc37a1410516bbb4399ce2e464a0ba62
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _reddownarrow_f: {fileID: 2800000, guid: dc99111e893bc92498fb4d68d8c9f5cb, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

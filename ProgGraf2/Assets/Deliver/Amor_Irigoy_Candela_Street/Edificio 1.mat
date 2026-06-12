@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Edificio 1
+  m_Shader: {fileID: 4800000, guid: 44c47cd848ee7174ca05cbc403314120, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BrickColorTex:
+        m_Texture: {fileID: 2800000, guid: a675b98d74bd99e4c88dd989b39bdcbd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DirtTex:
+        m_Texture: {fileID: 2800000, guid: ceb1bacd3e5dc9b4cb4b85eb1a74cfb6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _InteriorBorderTex:
+        m_Texture: {fileID: 2800000, guid: 7b120c3c3229f1245b47281ba7c9b80b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _InteriorWindowTex:
+        m_Texture: {fileID: 2800000, guid: 7b120c3c3229f1245b47281ba7c9b80b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowBorderTex:
+        m_Texture: {fileID: 2800000, guid: 30829d5dd88841546aba2990deee25a0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WindowColorTex:
+        m_Texture: {fileID: 2800000, guid: 1d7bcf945feff5a41bf626491be1c59c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WindowMaskTex:
+        m_Texture: {fileID: 2800000, guid: 1d7bcf945feff5a41bf626491be1c59c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _DirtScale: 0.1
+    - _DirtSmoothStep: 0.5
+    - _InteriorVisibility: 0.793
+    - _LowBorderDistance: -0.41
+    - __dirty: 0
+    m_Colors:
+    - _BrickAlbedo: {r: 0.4743681, g: 0.47494033, b: 0.49056602, a: 0}
+    - _DirtAlbedo: {r: 0.47450984, g: 0.47450984, b: 0.4901961, a: 0}
+    - _LowBorderAlbedo: {r: 1, g: 1, b: 1, a: 0}
+    - _LowBorderTexScale: {r: 2.23, g: 0.22, b: 0, a: 0}
+    - _UVScale: {r: 6, g: 7, b: 0, a: 0}
+    - _Vector0: {r: 6.69, g: 4.75, b: 0, a: 0}
+    - _WindowColor: {r: 0.6018156, g: 0.6971342, b: 0.7924528, a: 0}
+  m_BuildTextureStacks: []
