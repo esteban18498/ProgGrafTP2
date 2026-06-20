@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 532540788}
   - component: {fileID: 532540787}
   m_Layer: 0
-  m_Name: Occluder
+  m_Name: OcclusionController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -307,10 +307,12 @@ MonoBehaviour:
   cutoutRadius: 1.2
   cutoutFeather: 0.45
   holeAlpha: 0
-  ringColor: {r: 1, g: 0.85, b: 0.05, a: 1}
-  ringWidth: 0.08
-  ringIntensity: 1.5
-  smoothSpeed: 12
+  cutoutEnd: 0.85
+  baseColor: {r: 0.3301887, g: 0.2414116, b: 0.2414116, a: 0}
+  ringColor: {r: 0.4528302, g: 0.44215906, b: 0.4250623, a: 1}
+  ringWidth: 0.374
+  ringIntensity: 2.63
+  smoothSpeed: 13.2
 --- !u!4 &532540788
 Transform:
   m_ObjectHideFlags: 0
