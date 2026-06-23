@@ -24,6 +24,8 @@ public class PostProcessCameraScript : MonoBehaviour
 
     public Color accentColor = Color.white;
 
+    public Texture myTexture;
+    
     private float damageTimeCounter= 0;
     
 
@@ -39,6 +41,12 @@ public class PostProcessCameraScript : MonoBehaviour
 
     public float healFlashUmbral;
     public float healColorUmbral;
+    
+    [SerializeField] public Texture damageTexture;
+
+    [SerializeField] public Texture healingTexture;
+    
+    
 
     private bool parpadear = false;
 
@@ -51,12 +59,17 @@ public class PostProcessCameraScript : MonoBehaviour
     private bool cancelEffect = false;
 
     private float hitflashCounter = 0f;
+    
+    
+    
 
     private readonly int ColorID = Shader.PropertyToID("_ColorMult");
 
     private readonly int CenterVector = Shader.PropertyToID("_CenterVector");
 
     private readonly int StepValueVector = Shader.PropertyToID("_StepValueVector");
+
+    private readonly int EffectTexture = Shader.PropertyToID("_EffectTexture");
 
 
     private void Awake()
@@ -78,7 +91,7 @@ public class PostProcessCameraScript : MonoBehaviour
     private void Update()
 
     {
-        
+        myTexture = damageTexture;
 
 
 
@@ -213,13 +226,13 @@ public class PostProcessCameraScript : MonoBehaviour
         }
 
 
-        //Dañado
+        //Daï¿½ado
 
         if (Input.GetKey(KeyCode.D))
 
         {
             Effect();
-            Debug.Log("daño");
+            Debug.Log("daï¿½o");
 
             Damage();
 
@@ -264,6 +277,8 @@ public class PostProcessCameraScript : MonoBehaviour
         material.SetVector(CenterVector, myCenterVector);
 
         material.SetVector(StepValueVector, myStepValueVector);
+
+        material.SetTexture(EffectTexture, myTexture);
 
     }
 
