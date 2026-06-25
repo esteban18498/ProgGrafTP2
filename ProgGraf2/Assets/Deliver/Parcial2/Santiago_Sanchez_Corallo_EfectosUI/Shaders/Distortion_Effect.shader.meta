@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: eec5d828442e1474fae8b464935b4b51
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _RotateTexture: {fileID: 2800000, guid: a99649a3ac7df724eb781c969383e632, type: 3}
+  - _NormalTextureMask: {fileID: 2800000, guid: 596678c53fd54a640bf95ba7dfafd092, type: 3}
+  - _Ramp: {fileID: 2800000, guid: 131633c45b26caa4f9673a16077a1970, type: 3}
+  - _FlowLineTexture: {fileID: 2800000, guid: 7b0842e3d0da6bf468f08b4a0ad9db9b, type: 3}
+  - _AlbedoTexture: {fileID: 2800000, guid: 36be8d528a4fa024faa4680d7658642c, type: 3}
+  - _DistortionTexture: {fileID: 2800000, guid: 302951faffe230848aa0d3df7bb70faa, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
