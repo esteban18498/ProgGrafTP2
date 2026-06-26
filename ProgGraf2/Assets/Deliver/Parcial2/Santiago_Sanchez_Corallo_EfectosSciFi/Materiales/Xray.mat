@@ -35,11 +35,11 @@ Material:
     - _Width: 0
     - _XRayBias: 0
     - _XRayBias1: 0
-    - _XRayIntensity: 2.44
+    - _XRayIntensity: 2
     - _XRayIntensity1: 1.5
-    - _XRayPower: 2.5
+    - _XRayPower: 1
     - _XRayPower1: 1
-    - _XRayScale: 2
+    - _XRayScale: 1
     - _XRayScale1: 1.5
     - __dirty: 0
     m_Colors:

@@ -20,8 +20,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _FalloffTex:
+        m_Texture: {fileID: 2800000, guid: 62010525e97e86644b7706ffa8f3a162, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _FalloffTex1:
         m_Texture: {fileID: 2800000, guid: 62010525e97e86644b7706ffa8f3a162, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadowTex:
+        m_Texture: {fileID: 2800000, guid: 31cafcc7840963f43ab15238af6cc7eb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowTex1:
@@ -30,7 +38,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _MaskIntensity: 3
     - _MaskIntensity2: 1.5
+    - _MaskPower: 1
     - _MaskPower3: 2
     m_Colors: []
   m_BuildTextureStacks: []

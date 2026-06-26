@@ -349,8 +349,8 @@ Transform:
   - {fileID: 1653699361}
   - {fileID: 310728220}
   - {fileID: 1708476004}
-  - {fileID: 1791100034}
   - {fileID: 539979781}
+  - {fileID: 1791100034}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -364,6 +364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 310728220}
   - component: {fileID: 310728221}
+  - component: {fileID: 310728222}
   m_Layer: 0
   m_Name: ProyectorHeatVision
   m_TagString: Untagged
@@ -405,6 +406,24 @@ Projector:
   m_IgnoreLayers:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &310728222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310728219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa18bb36d422e44096f8c1fa1635203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heatVisionMaterial: {fileID: 2100000, guid: 96507ce832f9af244aaa9da81c2976c2, type: 2}
+  TemperatureValue: 60
+  heatVisionBiasValue: -1.15
+  heatVisionScaleValue: 2.37
+  heatVisionPowerValue: 1.1
+  outlineWidthValue: 0.01
 --- !u!1 &447786543
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,6 +528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 539979781}
   - component: {fileID: 539979782}
+  - component: {fileID: 539979783}
   m_Layer: 0
   m_Name: ProyectorRayoDeLuz
   m_TagString: Untagged
@@ -529,7 +549,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 187607349}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 25.886, y: -2.105, z: -1.01}
 --- !u!119 &539979782
 Projector:
@@ -549,7 +569,29 @@ Projector:
   m_Material: {fileID: 2100000, guid: 8d956701fae76a14fb21fbba7ef367b2, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 3072
+--- !u!114 &539979783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539979780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0df334f33f8e8f74d8e2cb56ca2aebde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayoDeLuzMaterial: {fileID: 2100000, guid: 8d956701fae76a14fb21fbba7ef367b2, type: 2}
+  rayoDeSombraMaterial: {fileID: 2100000, guid: f8b0d883a485ad240a6f6f92d1b0bb39, type: 2}
+  lightTexture: {fileID: 2800000, guid: 5228a04ef529d2641937cab585cc1a02, type: 3}
+  shadowTexture: {fileID: 2800000, guid: 31cafcc7840963f43ab15238af6cc7eb, type: 3}
+  gradientTexture: {fileID: 2800000, guid: 62010525e97e86644b7706ffa8f3a162, type: 3}
+  lightMaskPower: 4
+  lightMaskIntensity: 6
+  shadowMaskPower: 1
+  shadowMaskIntensity: 3
+  lightColor: {r: 0.8867924, g: 0.6911675, b: 0.004182993, a: 1}
 --- !u!1 &676989000
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,6 +932,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1653699361}
   - component: {fileID: 1653699360}
+  - component: {fileID: 1653699362}
   m_Layer: 0
   m_Name: ProyectorXRay
   m_TagString: Untagged
@@ -931,6 +974,25 @@ Transform:
   m_Father: {fileID: 187607349}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1653699362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653699359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7985603f727665d4a90da9d9570080a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xRayMaterial: {fileID: 2100000, guid: c0e0d877508e91c43a1157b002923493, type: 2}
+  xRayBias: 0
+  xRayScale: 1
+  xRayPower: 1
+  xRayIntensity: 2
+  outlineWidth: 0.02
+  xRayColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &1708476003
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,6 +1003,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1708476004}
   - component: {fileID: 1708476005}
+  - component: {fileID: 1708476006}
   m_Layer: 0
   m_Name: "ProyectorLucesGu\xEDa"
   m_TagString: Untagged
@@ -982,6 +1045,21 @@ Projector:
   m_IgnoreLayers:
     serializedVersion: 2
     m_Bits: 246
+--- !u!114 &1708476006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708476003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749204c7698d8984ab4dd960739f1f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lucesGuiaMaterial: {fileID: 2100000, guid: 493c4fbccb12edc4889e832e5917995f, type: 2}
+  baseTexture: {fileID: 2800000, guid: 590bc5de95bae0548904b2a1fe93ef3a, type: 3}
+  baseColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1791100033
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,14 +1084,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791100033}
-  m_LocalRotation: {x: -0.13098922, y: -0.36157054, z: 0.05491837, w: -0.9214622}
+  m_LocalRotation: {x: -0.12633422, y: -0.4319651, z: 0.06491463, w: -0.8906357}
   m_LocalPosition: {x: 9.001, y: 3.337, z: -7.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 187607349}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 16.327, y: 42.793, z: -0.387}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 16.327, y: 51.692, z: -0.387}
 --- !u!119 &1791100035
 Projector:
   m_ObjectHideFlags: 0
