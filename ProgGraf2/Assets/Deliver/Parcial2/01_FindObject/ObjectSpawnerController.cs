@@ -25,8 +25,6 @@ public class ObjectSpawnerController : MonoBehaviour
 
 
 
-
-
     public Mesh[] fillerMeshes;
     public Material[] FillerMaterial;
     private List<ObjectToDraw> objectsList;
@@ -34,12 +32,15 @@ public class ObjectSpawnerController : MonoBehaviour
     public Mesh TargetMesh;
     public Material TargetMaterial;
     private ObjectToDraw targetObject;
+    private CapsuleCollider col;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         objectsList = new List<ObjectToDraw>();
+        col = GetComponent<CapsuleCollider>();
 
 
 
@@ -54,6 +55,7 @@ public class ObjectSpawnerController : MonoBehaviour
             position = new Vector3(tx, ty, tz),
             rotation = Quaternion.identity
         };
+        col.center = targetObject.position;
 
 
         // will make the mesh appear in the Scene at origin position
