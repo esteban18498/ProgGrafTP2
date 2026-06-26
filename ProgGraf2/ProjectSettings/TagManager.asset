@@ -20,13 +20,13 @@ TagManager:
   - Obstacle
   - 
   - 
+  - Environment
+  - Player
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Foreground
   - 
   - 
   - 
@@ -41,4 +41,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Water
+    uniqueID: 2229438125
+    locked: 0
+  - name: Foreground
+    uniqueID: 3737831873
     locked: 0
