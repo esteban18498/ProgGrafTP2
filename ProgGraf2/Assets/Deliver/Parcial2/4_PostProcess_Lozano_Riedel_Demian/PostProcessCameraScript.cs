@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 
 using System.Collections.Generic;
-
+using AmplifyShaderEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PostProcessCameraScript : MonoBehaviour
 
 {
-
+    [Header("PostProcess")]
     [SerializeField] private Shader shader;
 
     private Material material;
@@ -24,9 +26,10 @@ public class PostProcessCameraScript : MonoBehaviour
 
     public Color accentColor = Color.white;
 
-    public Texture myTexture;
+    
     
     private float damageTimeCounter= 0;
+   
     
 
     public float damageTotalTime;
@@ -42,13 +45,17 @@ public class PostProcessCameraScript : MonoBehaviour
     public float healFlashUmbral;
     public float healColorUmbral;
     
-    [SerializeField] public Texture damageTexture;
-
-    [SerializeField] public Texture healingTexture;
+    
     
     
 
     private bool parpadear = false;
+    private float parpadeoTimeCounter= 0;
+    
+    public float parpadeoFlashUmbral;
+    public float parpadeoClosedUmbral;
+    
+    public float parpadeoTotalTime;
 
     private bool damage = false;
 
@@ -69,7 +76,38 @@ public class PostProcessCameraScript : MonoBehaviour
 
     private readonly int StepValueVector = Shader.PropertyToID("_StepValueVector");
 
+    
+    
+    [Header("Overlay")]
+    private Material overlayMaterial;
+    
+    [SerializeField] private Shader overlayShader;
+    
+    [SerializeField] public  Image myImage;
+    
+    
+    
+    [SerializeField] public Texture damageTexture;
+
+    [SerializeField] public Texture healingTexture;
+    
+    [SerializeField] public Texture cameraTexture;
+
+    private Color opaque;
+    private Color transparent;
+    
+    
+    
+    public Texture myTexture;
+    public Vector2 myPanningDirection;
+    public float myPanningSpeed;
+    
+    
+    
+    
     private readonly int EffectTexture = Shader.PropertyToID("_EffectTexture");
+    private readonly int PanningDirection = Shader.PropertyToID("_PanningDirection");
+    private readonly int PanningSpeed = Shader.PropertyToID("_PanningSpeed");
 
 
     private void Awake()
@@ -78,6 +116,18 @@ public class PostProcessCameraScript : MonoBehaviour
 
         material = new Material(shader);
 
+    }
+
+    private void Start()
+    {
+        overlayMaterial = new Material(overlayShader);
+        
+        opaque = new Color(0, 0, 0, 1);
+        transparent = new Color(0, 0, 0, 0);
+        
+        myImage.material = overlayMaterial;
+        myImage.material.mainTexture = myTexture;
+        myImage.color = transparent;
     }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -91,15 +141,83 @@ public class PostProcessCameraScript : MonoBehaviour
     private void Update()
 
     {
-        myTexture = damageTexture;
+       
 
 
 
         if (parpadear)
 
         {
+            parpadeoTimeCounter += Time.deltaTime;
 
-            myStepValueVector.x = Mathf.Lerp(0.3f, -2f, 0.5f);
+
+                hitflashCounter += Time.deltaTime;
+
+                myColor = Color.black;
+                
+                
+
+                // Ojo cerrado
+                myStepValueVector.x = Mathf.Lerp(myStepValueVector.x, 0f, 0.5f);
+                myStepValueVector.y = Mathf.Lerp(myStepValueVector.y, 0f, 0.5f);
+                
+                Debug.Log(myStepValueVector.x);
+                Debug.Log(myStepValueVector.y);
+
+                if (hitflashCounter > parpadeoFlashUmbral && hitflashCounter < parpadeoClosedUmbral)
+
+                {
+
+                   
+                // Ojo abierto
+                myStepValueVector.x = Mathf.Lerp(0, 0.1f, 1f);
+                myStepValueVector.x = Mathf.Lerp(0, 0.5f, 1f);
+                
+                
+                Debug.Log(myStepValueVector.x);
+                Debug.Log(myStepValueVector.y);
+
+                }
+
+                if (hitflashCounter > parpadeoClosedUmbral)
+
+                {
+                    // Ojo cerrado
+                    
+                    //myStepValueVector.x = Mathf.Lerp(0.3f, -2f, 0.5f);
+                    
+                    myStepValueVector.x = Mathf.Lerp(myStepValueVector.x, 0f, 1f);
+                    myStepValueVector.y = Mathf.Lerp(myStepValueVector.y, 0f, 1f);
+
+                    Debug.Log(myStepValueVector.x);
+                    Debug.Log(myStepValueVector.y);
+                
+
+                }
+
+                if (parpadeoTimeCounter > parpadeoTotalTime)
+                {
+                    
+                    // Ojo abierto
+                    
+                    //myStepValueVector.x = Mathf.Lerp(0.3f, -2f, 0.5f);
+                    
+                    myStepValueVector.x = Mathf.Lerp(0, 0.1f, 1f);
+                    myStepValueVector.x = Mathf.Lerp(0, 0.5f, 1f);
+                    
+                    Debug.Log(myStepValueVector.x);
+                    Debug.Log(myStepValueVector.y);
+                    
+                    hitflashCounter = 0;
+                    parpadeoTimeCounter = 0;
+                    CancelEffect();
+                    myImage.color = transparent;
+                    parpadear = false;
+
+                }
+
+            
+            
 
 
 
@@ -108,7 +226,7 @@ public class PostProcessCameraScript : MonoBehaviour
         if (effect)
         {
             myStepValueVector.x = Mathf.Lerp(myStepValueVector.x, 0.2f, 1f);
-            myStepValueVector.y = Mathf.Lerp(myStepValueVector.x, 0.8f, 1f);
+            myStepValueVector.y = Mathf.Lerp(myStepValueVector.y, 0.8f, 1f);
 
             if (myStepValueVector.x == 0.2f)
             {
@@ -172,6 +290,7 @@ public class PostProcessCameraScript : MonoBehaviour
                 hitflashCounter = 0;
                 damageTimeCounter = 0;
                 CancelEffect();
+                myImage.color = transparent;
                 damage = !damage;
 
             }
@@ -219,6 +338,7 @@ public class PostProcessCameraScript : MonoBehaviour
                 hitflashCounter = 0;
                 healTimeCounter = 0;
                 CancelEffect();
+                myImage.color = transparent;
                 heal = !heal;
 
             }
@@ -257,12 +377,24 @@ public class PostProcessCameraScript : MonoBehaviour
 
         //Parpadeo
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.P))
         {
 
             Debug.Log("parpadear");
 
             Parpadear();
+
+        }
+        
+        if (Input.GetKey(KeyCode.C))
+
+        {
+            //Effect();
+            Debug.Log("camara");
+            
+            Camera();
+
+            //material.SetColor(ColorID, healColor);
 
         }
 
@@ -277,8 +409,13 @@ public class PostProcessCameraScript : MonoBehaviour
         material.SetVector(CenterVector, myCenterVector);
 
         material.SetVector(StepValueVector, myStepValueVector);
+        
+        
+        overlayMaterial.SetTexture(EffectTexture, myTexture);
+        overlayMaterial.SetVector(PanningDirection, myPanningDirection);
+        overlayMaterial.SetFloat(PanningSpeed, myPanningSpeed);
 
-        material.SetTexture(EffectTexture, myTexture);
+        
 
     }
 
@@ -302,14 +439,17 @@ public class PostProcessCameraScript : MonoBehaviour
 
     {
 
-        parpadear = !parpadear;
+        parpadear = true;
 
     }
 
     private void Damage()
 
     {
-
+        myTexture = damageTexture;
+        myPanningDirection = Vector2.zero;
+        myPanningSpeed = 0.0f;
+        myImage.color = opaque;
         damage = true;
 
 
@@ -318,9 +458,20 @@ public class PostProcessCameraScript : MonoBehaviour
     private void Heal()
 
     {
-
+        myTexture = healingTexture;
+        myPanningDirection = new Vector2(0f, -1f);
+        myPanningSpeed = 0.5f;
+        myImage.color = opaque;
         heal = true;
 
+    }
+    
+    private void Camera()
+    {
+        myTexture = cameraTexture;
+        myPanningDirection = Vector2.zero;
+        myPanningSpeed = 0.0f;
+        myImage.color = opaque;
     }
 
 }
