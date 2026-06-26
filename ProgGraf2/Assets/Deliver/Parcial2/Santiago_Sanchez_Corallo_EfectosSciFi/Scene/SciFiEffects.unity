@@ -405,7 +405,7 @@ Projector:
   m_Material: {fileID: 2100000, guid: 96507ce832f9af244aaa9da81c2976c2, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 16384
 --- !u!114 &310728222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,7 +569,7 @@ Projector:
   m_Material: {fileID: 2100000, guid: 8d956701fae76a14fb21fbba7ef367b2, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 16384
 --- !u!114 &539979783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 676989004}
   - component: {fileID: 676989003}
   - component: {fileID: 676989002}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,7 +701,7 @@ GameObject:
   - component: {fileID: 730907350}
   - component: {fileID: 730907349}
   - component: {fileID: 730907348}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 927555027}
   - component: {fileID: 927555026}
   - component: {fileID: 927555025}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -893,7 +893,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1576574689}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -958,7 +958,7 @@ Projector:
   m_Material: {fileID: 2100000, guid: c0e0d877508e91c43a1157b002923493, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 16384
 --- !u!4 &1653699361
 Transform:
   m_ObjectHideFlags: 0
@@ -1044,7 +1044,7 @@ Projector:
   m_Material: {fileID: 2100000, guid: 493c4fbccb12edc4889e832e5917995f, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
-    m_Bits: 246
+    m_Bits: 1051894
 --- !u!114 &1708476006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1110,7 +1110,7 @@ Projector:
   m_Material: {fileID: 2100000, guid: f8b0d883a485ad240a6f6f92d1b0bb39, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 16384
 --- !u!1 &1861154022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,7 +1123,7 @@ GameObject:
   - component: {fileID: 1861154026}
   - component: {fileID: 1861154025}
   - component: {fileID: 1861154024}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1313,9 +1313,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1761654050630808807, guid: 95362a5c44bde864aafacf1b8bd77d93, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1761654051642284396, guid: 95362a5c44bde864aafacf1b8bd77d93, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1761654051642284396, guid: 95362a5c44bde864aafacf1b8bd77d93, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1761654051642284400, guid: 95362a5c44bde864aafacf1b8bd77d93, type: 3}
       propertyPath: m_RootOrder
@@ -1359,6 +1367,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1761654051642284400, guid: 95362a5c44bde864aafacf1b8bd77d93, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014357296967877559, guid: 95362a5c44bde864aafacf1b8bd77d93, type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
