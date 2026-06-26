@@ -34,10 +34,7 @@ public class ObjectSpawnerController : MonoBehaviour
     private ObjectToDraw targetObject;
     private CapsuleCollider col;
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    public void Regenerate()
     {
         objectsList = new List<ObjectToDraw>();
         col = GetComponent<CapsuleCollider>();
@@ -77,6 +74,13 @@ public class ObjectSpawnerController : MonoBehaviour
             };
             objectsList.Add(obj);
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+            Regenerate();
 
 
 

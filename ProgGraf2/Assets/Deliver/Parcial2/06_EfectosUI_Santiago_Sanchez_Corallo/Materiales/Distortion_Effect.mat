@@ -120,7 +120,7 @@ Material:
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
-    - _UVOffset: 0
+    - _UVOffset: 1
     - _UVoffset: 0
     - _UseUIAlphaClip: 0
     m_Colors:

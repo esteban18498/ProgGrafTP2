@@ -6,16 +6,37 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Parcial2/Player_SeeThrough.unity
-    guid: c5500e0156a9f8b45a04cdbc444552b5
+    path: Assets/Deliver/Parcial2/01_FindObject/01_FindObject.unity
+    guid: 23458a2336fbd2d499819f66cd541d75
   - enabled: 1
-    path: Assets/Scenes/Parcial2/01_FindObject.unity
-    guid: 69723312b6bcae145a542ecd7b3ec2ec
+    path: Assets/Deliver/Parcial2/02_Distance_Nicolas_Rodriguez/02_Player_SeeThroughWall.unity
+    guid: 0def5d6687672054fa19b203c49a5fd6
   - enabled: 1
-    path: Assets/Scenes/Parcial2/02_Player_SeeThroughWall.unity
-    guid: 1431c25ab4c077e4690245b8071df863
+    path: Assets/Deliver/Parcial2/03_Z_Buffer_Esteban_Vazquez/03_Z_Buffer.unity
+    guid: 776b1a70ef5642f439eb5f7e9995f833
   - enabled: 1
-    path: Assets/Scenes/Parcial2/03_Z_Buffer.unity
-    guid: d6a381b597a20894e8c54617c4773a32
+    path: Assets/Deliver/Parcial2/04_PostProcess_Lozano_Riedel_Demian/04_PostProcess_Lozano_Riedel_Demian.unity
+    guid: eb8363dbc3fe1fb40baf7dc3bd5e866e
+  - enabled: 1
+    path: Assets/Deliver/Parcial2/05_Water_Amor_Irigoy_Candela/05_Amor_Irigoy_Candela_Water.unity
+    guid: 6c0516cbe80ac1c4c92ad12e7c90be1a
+  - enabled: 1
+    path: Assets/Deliver/Parcial2/06_EfectosUI_Santiago_Sanchez_Corallo/Scene/6_EfectosUI_Santiago_Sanchez_Corallo.unity
+    guid: 97c00614193684843b667c3cb4e518e1
+  - enabled: 1
+    path: Assets/Deliver/Parcial2/07_Stencil_Nicolas_Rodriguez/07_Stencil_Nicolas_Rodriguez.unity
+    guid: 316609f7f95dd99499ebb0afb3169dea
+  - enabled: 1
+    path: Assets/Deliver/Parcial2/08_Stencil_Lozano_Riedel_Demian/08_Stencil_Lozano_Riedel_Demian.unity
+    guid: 3b60857de366b5d4ca31d0b2875c6675
+  - enabled: 1
+    path: Assets/Deliver/Parcial2/09_Projector_Esteban_Vazquez/09_Projector.unity
+    guid: 64f20bea2aec4fa4c917c44371dc6bcf
+  - enabled: 1
+    path: Assets/Deliver/Parcial2/10_Window_Amor_Irigoy_Candela/10_Amor_Irigoy_Candela_Window.unity
+    guid: a204ced7533e6194bab837884605642e
+  - enabled: 1
+    path: Assets/Deliver/Parcial2/11_Proyector_SciFi_Santiago_Sanchez_Corallo/Scene/11_Proyector_SciFi_Santiago_Sanchez_Corallo.unity
+    guid: 66a3ea1313b9bd540ad4bc5d17fb417c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
