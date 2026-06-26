@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -15,8 +15,12 @@ public class StencilPulseScanner : MonoBehaviour
     [Tooltip("Radio final del pulso en unidades de mundo.")]
     [SerializeField] private float maxRadius = 12f;
 
-    [Tooltip("Tiempo que tarda la esfera en crecer hasta Max Radius.")]
-    [SerializeField] private float duration = 1.2f;
+    [Tooltip("Velocidad base de expansion en unidades de mundo por segundo. Con Max Radius = 16 y Speed = 16, el pulso termina en aproximadamente un segundo.")]
+    [Min(0.01f)]
+    [SerializeField] private float expansionSpeed = 16f;
+
+    [Tooltip("Multiplicador visual independiente por eje. X y Z controlan el alcance horizontal; Y aplasta o estira la esfera verticalmente. No modifica el radio de deteccion.")]
+    [SerializeField] private Vector3 growthScale = new Vector3(1f, 0.33f, 1f);
 
     [Tooltip("Curva de crecimiento del radio. X es tiempo normalizado, Y es radio normalizado.")]
     [SerializeField] private AnimationCurve radiusCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
@@ -41,7 +45,10 @@ public class StencilPulseScanner : MonoBehaviour
     private void OnValidate()
     {
         maxRadius = Mathf.Max(0.1f, maxRadius);
-        duration = Mathf.Max(0.05f, duration);
+        expansionSpeed = Mathf.Max(0.01f, expansionSpeed);
+        growthScale.x = Mathf.Max(0.01f, growthScale.x);
+        growthScale.y = Mathf.Max(0.01f, growthScale.y);
+        growthScale.z = Mathf.Max(0.01f, growthScale.z);
         revealDuration = Mathf.Max(0.05f, revealDuration);
 
         if (pulseSphere == null || suspectMask.value == 0)
@@ -97,13 +104,14 @@ public class StencilPulseScanner : MonoBehaviour
     private void UpdatePulse()
     {
         pulseTime += Time.deltaTime;
-        float normalizedTime = Mathf.Clamp01(pulseTime / duration);
+        float normalizedTime = Mathf.Clamp01(pulseTime * expansionSpeed / maxRadius);
         float radius = radiusCurve.Evaluate(normalizedTime) * maxRadius;
 
         if (pulseSphere != null)
         {
+            float diameter = radius * 2f;
             pulseSphere.position = transform.position;
-            pulseSphere.localScale = Vector3.one * radius * 2f;
+            pulseSphere.localScale = Vector3.Scale(Vector3.one * diameter, growthScale);
         }
 
         DetectSuspects(radius);

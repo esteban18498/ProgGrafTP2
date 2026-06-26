@@ -5,7 +5,7 @@ Shader "S_Suspect_Hologram_Reader"
 	Properties
 	{
 		_HologramColor("HologramColor", Color) = (0,1,0.9750416,0)
-		_Alpha("Alpha", Range( 0 , 1)) = 0.3
+		_Alpha("Alpha", Range( 0 , 1)) = 0.4058824
 		_FresnelIntensity("FresnelIntensity", Range( 1 , 5)) = 1.352941
 		_FresnelColor("FresnelColor", Color) = (0.5481933,0.9113874,0.9150943,0)
 		[HideInInspector] __dirty( "", Int ) = 1
@@ -20,7 +20,7 @@ Shader "S_Suspect_Hologram_Reader"
 		Stencil
 		{
 			Ref 7
-			Comp Equal
+			Comp Always
 			Pass Keep
 			Fail Keep
 			ZFail Keep
@@ -132,7 +132,7 @@ Shader "S_Suspect_Hologram_Reader"
 }
 /*ASEBEGIN
 Version=18900
-0;0;1920;1011;1261;445.5;1;True;False
+7;78;1920;933;1233;385.5;1;True;False
 Node;AmplifyShaderEditor.FresnelNode;5;-880,121.5;Inherit;False;Standard;WorldNormal;ViewDir;False;False;5;0;FLOAT3;0,0,1;False;4;FLOAT3;0,0,0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;5;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;6;-907,312.5;Inherit;False;Property;_FresnelIntensity;FresnelIntensity;3;0;Create;True;0;0;0;False;0;False;1.352941;0;1;5;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;7;-572,147.5;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
@@ -140,9 +140,9 @@ Node;AmplifyShaderEditor.ColorNode;11;-867,-58.5;Inherit;False;Property;_Fresnel
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;9;-376,124.5;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ColorNode;1;-686,-243.5;Inherit;False;Property;_HologramColor;HologramColor;1;0;Create;True;0;0;0;False;0;False;0,1,0.9750416,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.WireNode;10;11,-60.5;Inherit;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0
+Node;AmplifyShaderEditor.RangedFloatNode;4;-258,367.5;Inherit;False;Property;_Alpha;Alpha;2;0;Create;True;0;0;0;False;0;False;0.4058824;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;8;-189,88.5;Inherit;True;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.RangedFloatNode;4;-258,367.5;Inherit;False;Property;_Alpha;Alpha;2;0;Create;True;0;0;0;False;0;False;0.3;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;73,16;Float;False;True;-1;2;ASEMaterialInspector;0;0;Standard;S_Suspect_Hologram_Reader;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Back;2;False;-1;7;False;-1;False;0;False;-1;0;False;-1;False;0;Custom;0.5;True;True;1;True;Custom;;Transparent;All;14;all;True;True;True;True;0;False;-1;True;7;False;-1;255;False;-1;255;False;-1;5;False;-1;1;False;-1;1;False;-1;1;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;-1;False;2;15;10;25;False;0.5;True;2;5;False;-1;10;False;-1;0;0;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;False;0;0;False;-1;-1;0;False;-1;0;0;0;False;0.1;False;-1;0;False;-1;False;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
+Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;112,-33;Float;False;True;-1;2;ASEMaterialInspector;0;0;Standard;S_Suspect_Hologram_Reader;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Back;2;False;-1;7;False;-1;False;0;False;-1;0;False;-1;False;0;Custom;0.5;True;True;1;True;Custom;;Transparent;All;14;all;True;True;True;True;0;False;-1;True;7;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;-1;False;2;15;10;25;False;0.5;True;2;5;False;-1;10;False;-1;0;0;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;False;0;0;False;-1;-1;0;False;-1;0;0;0;False;0.1;False;-1;0;False;-1;False;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
 WireConnection;7;0;5;0
 WireConnection;7;1;6;0
 WireConnection;9;0;11;0
@@ -154,4 +154,4 @@ WireConnection;0;0;10;0
 WireConnection;0;2;8;0
 WireConnection;0;9;4;0
 ASEEND*/
-//CHKSM=7834B781832CE665E7523AA89A431E97B22EA8BD
+//CHKSM=792DC7D42B64D23A463FB1A1D267703339101550
