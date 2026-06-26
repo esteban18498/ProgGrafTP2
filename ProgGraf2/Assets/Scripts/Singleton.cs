@@ -43,7 +43,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
         else if (_instance != this)
         {
-            Debug.LogWarning($"[Singleton] Instancia duplicada de {typeof(T)} destruida en {gameObject.name}");
+            //Debug.LogWarning($"[Singleton] Instancia duplicada de {typeof(T)} destruida en {gameObject.name}");
             Destroy(gameObject);
         }
     }

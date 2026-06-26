@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Parcial2/Player_SeeThrough.unity
     guid: c5500e0156a9f8b45a04cdbc444552b5
   - enabled: 1
-    path: Assets/Scenes/Parcial2/FindObject.unity
+    path: Assets/Scenes/Parcial2/01_FindObject.unity
     guid: 69723312b6bcae145a542ecd7b3ec2ec
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
