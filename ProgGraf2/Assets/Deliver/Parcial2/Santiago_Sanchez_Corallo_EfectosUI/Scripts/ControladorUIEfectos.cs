@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class ControladorUIEfectos : MonoBehaviour
 {
     public Slider progressBar;
+    public Image progressBarFill;
 
     public float minimumValue = 0f;
     public float maximumValue = 100f;
@@ -37,5 +38,8 @@ public class ControladorUIEfectos : MonoBehaviour
         {
             progressBar.value -= 1;
         }
+
+        float normalized = progressBar.value / progressBar.maxValue;
+        progressBarFill.material.SetFloat("_UVOffset", normalized);
     }
 }

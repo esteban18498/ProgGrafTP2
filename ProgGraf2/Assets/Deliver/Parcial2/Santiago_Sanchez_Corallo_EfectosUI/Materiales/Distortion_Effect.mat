@@ -25,7 +25,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseTexture:
-        m_Texture: {fileID: 2800000, guid: 80ab37a9e4f49c842903bb43bdd7bcd2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 36be8d528a4fa024faa4680d7658642c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistMask:
@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortionMask:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 302951faffe230848aa0d3df7bb70faa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortionNormal:
@@ -111,12 +111,17 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _DistortionAmount: 0.797
+    - _DistortionAmount: 0.784
+    - _PannerTime: 3.55
+    - _PannerTimeScale: 0.5
+    - _Speed: 1.5
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
+    - _UVOffset: 0
+    - _UVoffset: 0
     - _UseUIAlphaClip: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -124,8 +129,10 @@ Material:
     - _ColorDistortionMask: {r: 1, g: 0.079867214, b: 0, a: 1}
     - _ColorMix: {r: 0.099428415, g: 1, b: 0, a: 1}
     - _ColorNormalMask: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorTint: {r: 0.21658397, g: 1, b: 0, a: 1}
+    - _ColorTint: {r: 1, g: 0, b: 0, a: 1}
     - _CustomUVS1: {r: 0, g: 0, b: 0, a: 0}
+    - _PannerDirection: {r: -1, g: 0, b: 0, a: 0}
+    - _PannerSpeed: {r: -1, g: 0, b: 0, a: 0}
     - _Pos_Scale: {r: 0, g: -0.01, b: 1.21, a: 3}
     - _Pos_Scale1: {r: 0, g: 0, b: 1, a: 1}
   m_BuildTextureStacks: []

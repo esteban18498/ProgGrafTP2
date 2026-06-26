@@ -3,7 +3,7 @@ guid: eec5d828442e1474fae8b464935b4b51
 ShaderImporter:
   externalObjects: {}
   defaultTextures:
-  - _AlbedoTexture: {fileID: 2800000, guid: 36be8d528a4fa024faa4680d7658642c, type: 3}
+  - _BaseTexture: {fileID: 2800000, guid: 36be8d528a4fa024faa4680d7658642c, type: 3}
   - _DistortionTexture: {fileID: 2800000, guid: 302951faffe230848aa0d3df7bb70faa, type: 3}
   nonModifiableTextures: []
   preprocessorOverride: 0
