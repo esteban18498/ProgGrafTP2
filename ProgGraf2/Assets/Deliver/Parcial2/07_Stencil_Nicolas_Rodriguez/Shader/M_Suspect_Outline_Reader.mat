@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Suspect_Hologram_Reader
-  m_Shader: {fileID: 4800000, guid: e58da57312ad07c4f9c29948200e0d5b, type: 3}
+  m_Name: M_Suspect_Outline_Reader
+  m_Shader: {fileID: 4800000, guid: 9e3f722b7603e3f408430c59527f8589, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -22,10 +22,9 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.3
-    - _FresnelIntensity: 1.352941
+    - _EmissionIntensity: 1.94
+    - _OutlineAlpha: 0.85
     - __dirty: 0
     m_Colors:
-    - _FresnelColor: {r: 0.5481933, g: 0.9113874, b: 0.9150943, a: 0}
-    - _HologramColor: {r: 0, g: 1, b: 0.9750416, a: 0}
+    - _OutlineColor: {r: 0.07075471, g: 1, b: 0.9465557, a: 0}
   m_BuildTextureStacks: []
