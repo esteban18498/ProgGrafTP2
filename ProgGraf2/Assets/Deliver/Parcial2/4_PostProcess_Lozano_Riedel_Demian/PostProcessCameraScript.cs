@@ -57,6 +57,9 @@ public class PostProcessCameraScript : MonoBehaviour
     
     public float parpadeoTotalTime;
 
+    private readonly Vector2 parpadeoOpenStep = new Vector2(0.85f, 0.95f);
+    private readonly Vector2 parpadeoClosedStep = new Vector2(-0.02f, 0.0f);
+
     private bool damage = false;
 
     private bool heal = false;
@@ -149,78 +152,62 @@ public class PostProcessCameraScript : MonoBehaviour
 
         {
             parpadeoTimeCounter += Time.deltaTime;
+            myColor = Color.black;
 
+            float closeDuration = 0.35f;
+            float firstClosedHold = 1.0f;
+            float slowOpenDuration = 1.1f;
+            float fastCloseDuration = 0.25f;
+            float secondClosedHold = 0.75f;
+            float fastOpenDuration = 0.45f;
 
-                hitflashCounter += Time.deltaTime;
+            float t = parpadeoTimeCounter;
+            float firstCloseEnd = closeDuration;
+            float firstHoldEnd = firstCloseEnd + firstClosedHold;
+            float slowOpenEnd = firstHoldEnd + slowOpenDuration;
+            float secondCloseEnd = slowOpenEnd + fastCloseDuration;
+            float secondHoldEnd = secondCloseEnd + secondClosedHold;
+            float fastOpenEnd = secondHoldEnd + fastOpenDuration;
 
-                myColor = Color.black;
-                
-                
-
-                // Ojo cerrado
-                myStepValueVector.x = Mathf.Lerp(myStepValueVector.x, 0f, 0.5f);
-                myStepValueVector.y = Mathf.Lerp(myStepValueVector.y, 0f, 0.5f);
-                
-                Debug.Log(myStepValueVector.x);
-                Debug.Log(myStepValueVector.y);
-
-                if (hitflashCounter > parpadeoFlashUmbral && hitflashCounter < parpadeoClosedUmbral)
-
-                {
-
-                   
-                // Ojo abierto
-                myStepValueVector.x = Mathf.Lerp(0, 0.1f, 1f);
-                myStepValueVector.x = Mathf.Lerp(0, 0.5f, 1f);
-                
-                
-                Debug.Log(myStepValueVector.x);
-                Debug.Log(myStepValueVector.y);
-
-                }
-
-                if (hitflashCounter > parpadeoClosedUmbral)
-
-                {
-                    // Ojo cerrado
-                    
-                    //myStepValueVector.x = Mathf.Lerp(0.3f, -2f, 0.5f);
-                    
-                    myStepValueVector.x = Mathf.Lerp(myStepValueVector.x, 0f, 1f);
-                    myStepValueVector.y = Mathf.Lerp(myStepValueVector.y, 0f, 1f);
-
-                    Debug.Log(myStepValueVector.x);
-                    Debug.Log(myStepValueVector.y);
-                
-
-                }
-
-                if (parpadeoTimeCounter > parpadeoTotalTime)
-                {
-                    
-                    // Ojo abierto
-                    
-                    //myStepValueVector.x = Mathf.Lerp(0.3f, -2f, 0.5f);
-                    
-                    myStepValueVector.x = Mathf.Lerp(0, 0.1f, 1f);
-                    myStepValueVector.x = Mathf.Lerp(0, 0.5f, 1f);
-                    
-                    Debug.Log(myStepValueVector.x);
-                    Debug.Log(myStepValueVector.y);
-                    
-                    hitflashCounter = 0;
-                    parpadeoTimeCounter = 0;
-                    CancelEffect();
-                    myImage.color = transparent;
-                    parpadear = false;
-
-                }
-
-            
-            
-
-
-
+            if (t <= firstCloseEnd)
+            {
+                float normalizedTime = Mathf.SmoothStep(0f, 1f, t / closeDuration);
+                myStepValueVector = Vector2.Lerp(parpadeoOpenStep, parpadeoClosedStep, normalizedTime);
+            }
+            else if (t <= firstHoldEnd)
+            {
+                myStepValueVector = parpadeoClosedStep;
+            }
+            else if (t <= slowOpenEnd)
+            {
+                float phaseTime = t - firstHoldEnd;
+                float normalizedTime = Mathf.SmoothStep(0f, 1f, phaseTime / slowOpenDuration);
+                myStepValueVector = Vector2.Lerp(parpadeoClosedStep, parpadeoOpenStep, normalizedTime);
+            }
+            else if (t <= secondCloseEnd)
+            {
+                float phaseTime = t - slowOpenEnd;
+                float normalizedTime = Mathf.SmoothStep(0f, 1f, phaseTime / fastCloseDuration);
+                myStepValueVector = Vector2.Lerp(parpadeoOpenStep, parpadeoClosedStep, normalizedTime);
+            }
+            else if (t <= secondHoldEnd)
+            {
+                myStepValueVector = parpadeoClosedStep;
+            }
+            else if (t <= fastOpenEnd)
+            {
+                float phaseTime = t - secondHoldEnd;
+                float normalizedTime = Mathf.SmoothStep(0f, 1f, phaseTime / fastOpenDuration);
+                myStepValueVector = Vector2.Lerp(parpadeoClosedStep, parpadeoOpenStep, normalizedTime);
+            }
+            else
+            {
+                myStepValueVector = parpadeoOpenStep;
+                hitflashCounter = 0;
+                parpadeoTimeCounter = 0;
+                myImage.color = transparent;
+                parpadear = false;
+            }
         }
 
         if (effect)
@@ -377,7 +364,7 @@ public class PostProcessCameraScript : MonoBehaviour
 
         //Parpadeo
 
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
 
             Debug.Log("parpadear");
@@ -438,8 +425,13 @@ public class PostProcessCameraScript : MonoBehaviour
     private void Parpadear()
 
     {
+        if (parpadear)
+            return;
 
         parpadear = true;
+        parpadeoTimeCounter = 0f;
+        hitflashCounter = 0f;
+        myStepValueVector = parpadeoOpenStep;
 
     }
 
