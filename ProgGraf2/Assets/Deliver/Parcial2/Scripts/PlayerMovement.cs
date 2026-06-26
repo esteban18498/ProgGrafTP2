@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -7,6 +7,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 1.5f;
     [SerializeField] private float gravity = -9.81f;
+
+    [Header("Visual Rotation")]
+    [SerializeField] private Transform visualRoot;
+    [SerializeField] private float turnSpeed = 12f;
+    [SerializeField] private float visualYawOffset = 0f;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
@@ -19,13 +24,15 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+
+        if (visualRoot == null)
+            visualRoot = transform.Find("root");
     }
 
     private void Update()
     {
         Move();
-        ApplyGravity();
-        Jump();
+        ApplyJumpAndGravity();
     }
 
     private void Move()
@@ -37,28 +44,36 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.Normalize();
 
         characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+        RotateVisualTowards(moveDirection);
     }
 
-    private void ApplyGravity()
+    private void RotateVisualTowards(Vector3 moveDirection)
+    {
+        if (visualRoot == null || moveDirection.sqrMagnitude <= 0.001f)
+            return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+        targetRotation *= Quaternion.Euler(0f, visualYawOffset, 0f);
+
+        visualRoot.rotation = Quaternion.Slerp(
+            visualRoot.rotation,
+            targetRotation,
+            turnSpeed * Time.deltaTime
+        );
+    }
+
+    private void ApplyJumpAndGravity()
     {
         bool isGrounded = IsGrounded();
 
         if (isGrounded && velocity.y < 0f)
-        {
             velocity.y = -2f;
-        }
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
+            velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
 
         velocity.y += gravity * Time.deltaTime;
-
         characterController.Move(velocity * Time.deltaTime);
-    }
-
-    private void Jump()
-    {
-        if (Input.GetButtonDown("Jump") && IsGrounded())
-        {
-            velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
-        }
     }
 
     private bool IsGrounded()

@@ -25,6 +25,18 @@ public class StencilPulseScanner : MonoBehaviour
     [Tooltip("Curva de crecimiento del radio. X es tiempo normalizado, Y es radio normalizado.")]
     [SerializeField] private AnimationCurve radiusCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
+    [Header("Scanner Shader")]
+    [Tooltip("Color/emision del pulso. Se envia por script a _PulseColor del shader S_StencilScanner_Writer.")]
+    [SerializeField] private Color pulseColor = new Color(0f, 0.8396226f, 0.7392964f, 0f);
+
+    [Tooltip("Transparencia base de toda la esfera. Se envia por script a _BaseAlpha.")]
+    [Range(0f, 1f)]
+    [SerializeField] private float baseAlpha = 0.2f;
+
+    [Tooltip("Transparencia extra del borde Fresnel/rim de la esfera. Se envia por script a _RimAlpha.")]
+    [Range(0f, 1f)]
+    [SerializeField] private float rimAlpha = 0.65f;
+
     [Header("Detection")]
     [Tooltip("Layer de objetos detectables. Debe incluir Suspect.")]
     [SerializeField] private LayerMask suspectMask;
@@ -34,12 +46,20 @@ public class StencilPulseScanner : MonoBehaviour
 
     private readonly Collider[] hits = new Collider[64];
     private readonly HashSet<StencilDetectable> detectedThisPulse = new HashSet<StencilDetectable>();
+    private MaterialPropertyBlock pulseBlock;
+    private Renderer pulseRenderer;
     private float pulseTime;
     private bool pulseActive;
+
+    private static readonly int PulseColor = Shader.PropertyToID("_PulseColor");
+    private static readonly int BaseAlpha = Shader.PropertyToID("_BaseAlpha");
+    private static readonly int RimAlpha = Shader.PropertyToID("_RimAlpha");
+    private static readonly int LegacyPulseAlpha = Shader.PropertyToID("_PulseAlpha");
 
     private void Reset()
     {
         AutoAssignReferences();
+        ApplyScannerShaderValues();
     }
 
     private void OnValidate()
@@ -49,15 +69,20 @@ public class StencilPulseScanner : MonoBehaviour
         growthScale.x = Mathf.Max(0.01f, growthScale.x);
         growthScale.y = Mathf.Max(0.01f, growthScale.y);
         growthScale.z = Mathf.Max(0.01f, growthScale.z);
+        baseAlpha = Mathf.Clamp01(baseAlpha);
+        rimAlpha = Mathf.Clamp01(rimAlpha);
         revealDuration = Mathf.Max(0.05f, revealDuration);
 
-        if (pulseSphere == null || suspectMask.value == 0)
+        if (pulseSphere == null || suspectMask.value == 0 || pulseRenderer == null)
             AutoAssignReferences();
+
+        ApplyScannerShaderValues();
     }
 
     private void Awake()
     {
         AutoAssignReferences();
+        ApplyScannerShaderValues();
 
         if (pulseSphere != null)
             pulseSphere.gameObject.SetActive(false);
@@ -65,6 +90,8 @@ public class StencilPulseScanner : MonoBehaviour
 
     private void Update()
     {
+        ApplyScannerShaderValues();
+
         if (Input.GetKeyDown(scanKey))
             StartPulse();
 
@@ -77,6 +104,9 @@ public class StencilPulseScanner : MonoBehaviour
     {
         if (pulseSphere == null)
             pulseSphere = FindChildByName(transform, "ScannerSphere");
+
+        if (pulseSphere != null && pulseRenderer == null)
+            pulseRenderer = pulseSphere.GetComponent<Renderer>();
 
         if (suspectMask.value == 0)
         {
@@ -98,6 +128,7 @@ public class StencilPulseScanner : MonoBehaviour
             pulseSphere.gameObject.SetActive(true);
             pulseSphere.position = transform.position;
             pulseSphere.localScale = Vector3.zero;
+            ApplyScannerShaderValues();
         }
     }
 
@@ -123,6 +154,22 @@ public class StencilPulseScanner : MonoBehaviour
             if (pulseSphere != null)
                 pulseSphere.gameObject.SetActive(false);
         }
+    }
+
+    private void ApplyScannerShaderValues()
+    {
+        if (pulseRenderer == null)
+            return;
+
+        if (pulseBlock == null)
+            pulseBlock = new MaterialPropertyBlock();
+
+        pulseRenderer.GetPropertyBlock(pulseBlock);
+        pulseBlock.SetColor(PulseColor, pulseColor);
+        pulseBlock.SetFloat(BaseAlpha, baseAlpha);
+        pulseBlock.SetFloat(RimAlpha, rimAlpha);
+        pulseBlock.SetFloat(LegacyPulseAlpha, baseAlpha);
+        pulseRenderer.SetPropertyBlock(pulseBlock);
     }
 
     private void DetectSuspects(float radius)
