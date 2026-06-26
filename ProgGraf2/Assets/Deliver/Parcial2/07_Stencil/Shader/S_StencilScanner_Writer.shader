@@ -5,7 +5,8 @@ Shader "S_StencilScanner_Writer"
 	Properties
 	{
 		_PulseColor("PulseColor", Color) = (0,0.8396226,0.7392964,0)
-		_PulseAlpha("PulseAlpha", Range( 0 , 1)) = 0.2
+		_BaseAlpha("BaseAlpha", Range( 0 , 1)) = 0.2
+		_RimAlpha("RimAlpha", Range( 0 , 1)) = 0.6447201
 		[HideInInspector] __dirty( "", Int ) = 1
 	}
 
@@ -14,7 +15,7 @@ Shader "S_StencilScanner_Writer"
 		Tags{ "RenderType" = "Custom"  "Queue" = "Transparent+0" "IsEmissive" = "true"  }
 		Cull Back
 		ZWrite Off
-		ZTest Always
+		ZTest LEqual
 		Stencil
 		{
 			Ref 7
@@ -24,6 +25,7 @@ Shader "S_StencilScanner_Writer"
 			ZFail Keep
 		}
 		Blend SrcAlpha OneMinusSrcAlpha
+		
 		CGINCLUDE
 		#include "UnityPBSLighting.cginc"
 		#include "Lighting.cginc"
@@ -35,7 +37,8 @@ Shader "S_StencilScanner_Writer"
 		};
 
 		uniform float4 _PulseColor;
-		uniform float _PulseAlpha;
+		uniform float _RimAlpha;
+		uniform float _BaseAlpha;
 
 		void surf( Input i , inout SurfaceOutputStandard o )
 		{
@@ -45,7 +48,7 @@ Shader "S_StencilScanner_Writer"
 			float fresnelNdotV1 = dot( ase_worldNormal, ase_worldViewDir );
 			float fresnelNode1 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV1, 5.0 ) );
 			o.Emission = ( fresnelNode1 * _PulseColor ).rgb;
-			o.Alpha = ( fresnelNode1 * _PulseAlpha );
+			o.Alpha = saturate( ( ( fresnelNode1 * _RimAlpha ) + _BaseAlpha ) );
 		}
 
 		ENDCG
@@ -126,22 +129,24 @@ Shader "S_StencilScanner_Writer"
 }
 /*ASEBEGIN
 Version=18900
-0;0;1920;1011;1359.191;440.9667;1.137985;True;False
-Node;AmplifyShaderEditor.FresnelNode;1;-968.6732,-127.8505;Inherit;False;Standard;WorldNormal;ViewDir;False;False;5;0;FLOAT3;0,0,1;False;4;FLOAT3;0,0,0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;5;False;1;FLOAT;0
-Node;AmplifyShaderEditor.WireNode;7;-691.2625,139.3376;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
+7;72;1920;939;1695.72;413.6548;1.137985;True;False
+Node;AmplifyShaderEditor.FresnelNode;1;-1182.614,-132.4024;Inherit;False;Standard;WorldNormal;ViewDir;False;False;5;0;FLOAT3;0,0,1;False;4;FLOAT3;0,0,0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;5;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;9;-1232.872,274.827;Inherit;True;Property;_RimAlpha;RimAlpha;3;0;Create;True;0;0;0;False;0;False;0.6447201;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;10;-883.5111,207.6852;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;5;-908.5496,373.8303;Inherit;False;Property;_BaseAlpha;BaseAlpha;2;0;Create;True;0;0;0;False;0;False;0.2;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode;4;-609.964,-12.85361;Inherit;False;Property;_PulseColor;PulseColor;1;0;Create;True;0;0;0;False;0;False;0,0.8396226,0.7392964,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.RangedFloatNode;5;-632.0195,273.6882;Inherit;False;Property;_PulseAlpha;PulseAlpha;2;0;Create;True;0;0;0;False;0;False;0.2;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.WireNode;8;-351.0044,171.201;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleAddOpNode;11;-625.1884,254.3426;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;2;-302.622,-126.7497;Inherit;False;2;2;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;6;-251.9316,242.9625;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.StandardSurfaceOutputNode;3;1,0;Float;False;True;-1;2;ASEMaterialInspector;0;0;Standard;S_StencilScanner_Writer;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Back;2;False;-1;7;False;-1;False;0;False;-1;0;False;-1;False;0;Custom;0.5;True;True;0;False;Custom;;Transparent;All;14;all;True;True;True;True;0;False;-1;True;7;False;-1;255;False;-1;255;False;-1;7;False;-1;3;False;-1;1;False;-1;1;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;-1;False;2;15;10;25;False;0.5;True;2;5;False;-1;10;False;-1;0;0;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;False;0;0;False;-1;-1;0;False;-1;0;0;0;False;0.1;False;-1;0;False;-1;False;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
-WireConnection;7;0;1;0
-WireConnection;8;0;7;0
+Node;AmplifyShaderEditor.SaturateNode;12;-427.1791,262.3089;Inherit;True;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.StandardSurfaceOutputNode;3;1,0;Float;False;True;-1;2;ASEMaterialInspector;0;0;Standard;S_StencilScanner_Writer;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Back;2;False;-1;3;False;-1;False;0;False;-1;0;False;-1;False;0;Custom;0.5;True;True;0;True;Custom;;Transparent;All;14;all;True;True;True;True;0;False;-1;True;7;False;-1;255;False;-1;255;False;-1;7;False;-1;3;False;-1;1;False;-1;1;False;-1;7;False;-1;3;False;-1;1;False;-1;1;False;-1;False;2;15;10;25;False;0.5;True;2;5;False;-1;10;False;-1;0;0;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;False;0;0;False;-1;-1;0;False;-1;0;0;0;False;0.1;False;-1;0;False;-1;False;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
+WireConnection;10;0;1;0
+WireConnection;10;1;9;0
+WireConnection;11;0;10;0
+WireConnection;11;1;5;0
 WireConnection;2;0;1;0
 WireConnection;2;1;4;0
-WireConnection;6;0;8;0
-WireConnection;6;1;5;0
+WireConnection;12;0;11;0
 WireConnection;3;2;2;0
-WireConnection;3;9;6;0
+WireConnection;3;9;12;0
 ASEEND*/
-//CHKSM=225A05311E3EE83497D8C9490325BE0501F7DA25
+//CHKSM=1A8C566A54B9E5BADFA00532625B5B30F80DCA1B

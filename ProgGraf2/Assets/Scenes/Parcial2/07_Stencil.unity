@@ -850,6 +850,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1864967565047944630, guid: ef7fbccd040ed954f92b7c42f8af5cb7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1864967565047944635, guid: ef7fbccd040ed954f92b7c42f8af5cb7, type: 3}
+      propertyPath: m_Height
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1864967565047944635, guid: ef7fbccd040ed954f92b7c42f8af5cb7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2998975698343981303, guid: ef7fbccd040ed954f92b7c42f8af5cb7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 7969202451902796316, guid: ef7fbccd040ed954f92b7c42f8af5cb7, type: 3}
       propertyPath: m_ReceiveShadows
       value: 0
@@ -863,8 +879,20 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 9213467467998013526, guid: ef7fbccd040ed954f92b7c42f8af5cb7, type: 3}
+      propertyPath: growthScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213467467998013526, guid: ef7fbccd040ed954f92b7c42f8af5cb7, type: 3}
+      propertyPath: verticalScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213467467998013526, guid: ef7fbccd040ed954f92b7c42f8af5cb7, type: 3}
+      propertyPath: expansionSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213467467998013526, guid: ef7fbccd040ed954f92b7c42f8af5cb7, type: 3}
       propertyPath: revealDuration
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef7fbccd040ed954f92b7c42f8af5cb7, type: 3}

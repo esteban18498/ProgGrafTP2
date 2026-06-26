@@ -4,8 +4,9 @@ Shader "S_Suspect_Outline_Reader"
 {
 	Properties
 	{
-		_OutlineAlpha("OutlineAlpha", Range( 0 , 1)) = 0.85
-		_EmissionIntensity("EmissionIntensity", Range( 1 , 5)) = 1.941176
+		_OutlineAlpha("OutlineAlpha", Range( 0 , 1)) = 0.132353
+		_OutlineColor("OutlineColor", Color) = (0.07075471,1,0.9465557,0)
+		_EmissionIntensity("EmissionIntensity", Range( 1 , 5)) = 1
 		[HideInInspector] __dirty( "", Int ) = 1
 	}
 
@@ -29,9 +30,11 @@ Shader "S_Suspect_Outline_Reader"
 		#pragma target 3.0
 		struct Input
 		{
-			half filler;
+			float3 worldPos;
+			float3 worldNormal;
 		};
 
+		uniform float4 _OutlineColor;
 		uniform float _EmissionIntensity;
 		uniform float _OutlineAlpha;
 
@@ -42,8 +45,12 @@ Shader "S_Suspect_Outline_Reader"
 
 		void surf( Input i , inout SurfaceOutput o )
 		{
-			float4 color1 = IsGammaSpace() ? float4(1,0.4332019,0,0) : float4(1,0.1573377,0,0);
-			o.Emission = ( color1 * _EmissionIntensity ).rgb;
+			float3 ase_worldPos = i.worldPos;
+			float3 ase_worldViewDir = normalize( UnityWorldSpaceViewDir( ase_worldPos ) );
+			float3 ase_worldNormal = i.worldNormal;
+			float fresnelNdotV5 = dot( ase_worldNormal, ase_worldViewDir );
+			float fresnelNode5 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV5, 5.0 ) );
+			o.Emission = ( fresnelNode5 * ( _OutlineColor * _EmissionIntensity ) ).rgb;
 			o.Alpha = _OutlineAlpha;
 		}
 
@@ -76,6 +83,7 @@ Shader "S_Suspect_Outline_Reader"
 			{
 				V2F_SHADOW_CASTER;
 				float3 worldPos : TEXCOORD1;
+				float3 worldNormal : TEXCOORD2;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -88,6 +96,7 @@ Shader "S_Suspect_Outline_Reader"
 				UNITY_TRANSFER_INSTANCE_ID( v, o );
 				float3 worldPos = mul( unity_ObjectToWorld, v.vertex ).xyz;
 				half3 worldNormal = UnityObjectToWorldNormal( v.normal );
+				o.worldNormal = worldNormal;
 				o.worldPos = worldPos;
 				TRANSFER_SHADOW_CASTER_NORMALOFFSET( o )
 				return o;
@@ -103,6 +112,8 @@ Shader "S_Suspect_Outline_Reader"
 				UNITY_INITIALIZE_OUTPUT( Input, surfIN );
 				float3 worldPos = IN.worldPos;
 				half3 worldViewDir = normalize( UnityWorldSpaceViewDir( worldPos ) );
+				surfIN.worldPos = worldPos;
+				surfIN.worldNormal = IN.worldNormal;
 				SurfaceOutput o;
 				UNITY_INITIALIZE_OUTPUT( SurfaceOutput, o )
 				surf( surfIN, o );
@@ -121,15 +132,19 @@ Shader "S_Suspect_Outline_Reader"
 }
 /*ASEBEGIN
 Version=18900
-0;0;1920;1011;1184;438.5;1;True;False
-Node;AmplifyShaderEditor.ColorNode;1;-471,-85.5;Inherit;False;Constant;_OutlineColor;OutlineColor;1;0;Create;True;0;0;0;False;0;False;1,0.4332019,0,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.RangedFloatNode;3;-500,114.5;Inherit;False;Property;_EmissionIntensity;EmissionIntensity;2;0;Create;True;0;0;0;False;0;False;1.941176;0;1;5;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;2;-501,226.5;Inherit;False;Property;_OutlineAlpha;OutlineAlpha;1;0;Create;True;0;0;0;False;0;False;0.85;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;4;-187,16.5;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
-Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;0,0;Float;False;True;-1;2;ASEMaterialInspector;0;0;Unlit;S_Suspect_Outline_Reader;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Front;2;False;-1;7;False;-1;False;0;False;-1;0;False;-1;False;0;Custom;0.5;True;True;2;True;Custom;;Transparent;All;14;all;True;True;True;True;0;False;-1;True;7;False;-1;255;False;-1;255;False;-1;5;False;-1;1;False;-1;1;False;-1;1;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;-1;False;2;15;10;25;False;0.5;True;0;0;False;-1;0;False;-1;0;0;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;False;0;0;False;-1;-1;0;False;-1;0;0;0;False;0.1;False;-1;0;False;-1;False;15;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0;False;4;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
+7;84;1920;927;1150;445.5;1;True;False
+Node;AmplifyShaderEditor.RangedFloatNode;3;-712,89.5;Inherit;False;Property;_EmissionIntensity;EmissionIntensity;3;0;Create;True;0;0;0;False;0;False;1;0;1;5;0;1;FLOAT;0
+Node;AmplifyShaderEditor.ColorNode;1;-683,-110.5;Inherit;False;Property;_OutlineColor;OutlineColor;2;0;Create;True;0;0;0;False;0;False;0.07075471,1,0.9465557,0;1,0.4332019,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;4;-399,-8.5;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
+Node;AmplifyShaderEditor.FresnelNode;5;-824,-303.5;Inherit;False;Standard;WorldNormal;ViewDir;False;False;5;0;FLOAT3;0,0,1;False;4;FLOAT3;0,0,0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;5;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;2;-501,226.5;Inherit;False;Property;_OutlineAlpha;OutlineAlpha;1;0;Create;True;0;0;0;False;0;False;0.132353;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;6;-231,-28.5;Inherit;True;2;2;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
+Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;243,-9;Float;False;True;-1;2;ASEMaterialInspector;0;0;Unlit;S_Suspect_Outline_Reader;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Front;2;False;-1;7;False;-1;False;0;False;-1;0;False;-1;False;0;Custom;0.5;True;True;2;True;Custom;;Transparent;All;14;all;True;True;True;True;0;False;-1;True;7;False;-1;255;False;-1;255;False;-1;5;False;-1;1;False;-1;1;False;-1;1;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;-1;False;2;15;10;25;False;0.5;True;0;0;False;-1;0;False;-1;0;0;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;False;0;0;False;-1;-1;0;False;-1;0;0;0;False;0.1;False;-1;0;False;-1;False;15;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0;False;4;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
 WireConnection;4;0;1;0
 WireConnection;4;1;3;0
-WireConnection;0;2;4;0
+WireConnection;6;0;5;0
+WireConnection;6;1;4;0
+WireConnection;0;2;6;0
 WireConnection;0;9;2;0
 ASEEND*/
-//CHKSM=6BD196B835E66E20F87A9A8F665D7710F05D0216
+//CHKSM=C432EE8D84788AD277AE35825B489D68B2FF54C9
