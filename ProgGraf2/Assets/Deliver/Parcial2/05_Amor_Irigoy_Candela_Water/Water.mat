@@ -20,6 +20,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _RenderTexture:
+        m_Texture: {fileID: 8400000, guid: 73ddd83ade786b04696b1dc90a00a174, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TextureSample1:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
