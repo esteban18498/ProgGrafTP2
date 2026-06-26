@@ -9,6 +9,11 @@ using UnityEngine.UI;
 public class PostProcessCameraScript : MonoBehaviour
 
 {
+    [Header("Control")]
+    public float Switcher = 1;
+
+    private readonly int SwitcherID = Shader.PropertyToID("_Switcher");
+
     [Header("PostProcess")]
     [SerializeField] private Shader shader;
 
@@ -79,17 +84,33 @@ public class PostProcessCameraScript : MonoBehaviour
 
     private readonly int StepValueVector = Shader.PropertyToID("_StepValueVector");
 
-    
-    
+
+    [Header("CameraSettings")]
+    public float CameraNoiseIntensity = 0.5f;
+    public float CameraNoiseSpeed = 1f;
+    public Color CameraTint;
+
+    //_CameraNoiseIntensity opacidad del ruido
+
+    //_CameraTint color de tinte de cámara
+
+    //_CameraNoiseSpeed velocidad de ruido de camara
+
+    private readonly int CameraNoiseIntensityID = Shader.PropertyToID("_CameraNoiseIntensity");
+
+    private readonly int CameraTintID = Shader.PropertyToID("_CameraTint");
+
+    private readonly int CameraNoiseSpeedID = Shader.PropertyToID("_CameraNoiseSpeed velocidad");
+
+
     [Header("Overlay")]
-    private Material overlayMaterial;
-    
     [SerializeField] private Shader overlayShader;
     
     [SerializeField] public  Image myImage;
-    
-    
-    
+
+    private Material overlayMaterial;
+
+
     [SerializeField] public Texture damageTexture;
 
     [SerializeField] public Texture healingTexture;
@@ -389,7 +410,7 @@ public class PostProcessCameraScript : MonoBehaviour
 
         // Modificar Shader
 
-
+        material.SetFloat(SwitcherID, Switcher);
 
         material.SetColor(ColorID, myColor);
 
@@ -401,6 +422,11 @@ public class PostProcessCameraScript : MonoBehaviour
         overlayMaterial.SetTexture(EffectTexture, myTexture);
         overlayMaterial.SetVector(PanningDirection, myPanningDirection);
         overlayMaterial.SetFloat(PanningSpeed, myPanningSpeed);
+
+
+        material.SetColor(CameraTintID, CameraTint);
+        material.SetFloat(CameraNoiseIntensityID, CameraNoiseIntensity);
+        material.SetFloat(CameraNoiseSpeedID, CameraNoiseSpeed);
 
         
 
@@ -425,6 +451,7 @@ public class PostProcessCameraScript : MonoBehaviour
     private void Parpadear()
 
     {
+        Switcher = 1;
         if (parpadear)
             return;
 
@@ -438,6 +465,7 @@ public class PostProcessCameraScript : MonoBehaviour
     private void Damage()
 
     {
+        Switcher = 1;
         myTexture = damageTexture;
         myPanningDirection = Vector2.zero;
         myPanningSpeed = 0.0f;
@@ -450,6 +478,7 @@ public class PostProcessCameraScript : MonoBehaviour
     private void Heal()
 
     {
+        Switcher = 1;
         myTexture = healingTexture;
         myPanningDirection = new Vector2(0f, -1f);
         myPanningSpeed = 0.5f;
@@ -460,6 +489,7 @@ public class PostProcessCameraScript : MonoBehaviour
     
     private void Camera()
     {
+        Switcher = 0;
         myTexture = cameraTexture;
         myPanningDirection = Vector2.zero;
         myPanningSpeed = 0.0f;

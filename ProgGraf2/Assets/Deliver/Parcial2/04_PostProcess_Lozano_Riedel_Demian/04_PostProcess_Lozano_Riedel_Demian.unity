@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -985,6 +985,7 @@ GameObject:
   - component: {fileID: 1639911949}
   - component: {fileID: 1639911948}
   - component: {fileID: 1639911951}
+  - component: {fileID: 1639911952}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1070,6 +1071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e43db9866f2f2894c9c272568c0564d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Switcher: 1
   shader: {fileID: 4800000, guid: 40173a04be1b35b4a93b1829e9ef37a2, type: 3}
   myColor: {r: 1, g: 1, b: 1, a: 0}
   myCenterVector: {x: 0.5, y: 0.5}
@@ -1086,6 +1088,9 @@ MonoBehaviour:
   parpadeoFlashUmbral: 1.5
   parpadeoClosedUmbral: 2.5
   parpadeoTotalTime: 3.5
+  CameraNoiseIntensity: 0.5
+  CameraNoiseSpeed: 1
+  CameraTint: {r: 0.5024938, g: 0.8396226, b: 0.41585082, a: 0}
   overlayShader: {fileID: 4800000, guid: 180ed73fd58efdf4dad1c19c7e6648dc, type: 3}
   myImage: {fileID: 415190927}
   damageTexture: {fileID: 2800000, guid: 991441b95fe69774cb94c8de84abea0d, type: 3}
@@ -1094,6 +1099,20 @@ MonoBehaviour:
   myTexture: {fileID: 0}
   myPanningDirection: {x: 0, y: 0}
   myPanningSpeed: 0
+--- !u!114 &1639911952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639911947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec4c982537d64143811da19f3b2e4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBody: {fileID: 0}
+  mouseSensitivity: 200
 --- !u!1 &1906662436
 GameObject:
   m_ObjectHideFlags: 0
