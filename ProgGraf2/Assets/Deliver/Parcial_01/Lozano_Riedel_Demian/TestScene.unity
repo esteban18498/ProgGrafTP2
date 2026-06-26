@@ -601,7 +601,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1565937243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -968,15 +968,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639911947}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e43db9866f2f2894c9c272568c0564d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 40173a04be1b35b4a93b1829e9ef37a2, type: 3}
-  myColor: {r: 0, g: 0, b: 0, a: 0}
+  myColor: {r: 1, g: 1, b: 1, a: 0}
   myCenterVector: {x: 0.5, y: 0.5}
-  myStepValueVector: {x: 0.3, y: 0.5}
+  myStepValueVector: {x: 1, y: 1}
+  damageColor: {r: 1, g: 0, b: 0, a: 0}
+  healColor: {r: 0, g: 1, b: 0.20496893, a: 0}
+  accentColor: {r: 1, g: 1, b: 1, a: 1}
+  damageTotalTime: 1
+  damageFlashUmbral: 0.1
+  damageColorUmbral: 0.2
+  healTotalTime: 1
+  healFlashUmbral: 0.1
+  healColorUmbral: 0.2
 --- !u!1 &1659103493
 GameObject:
   m_ObjectHideFlags: 0
