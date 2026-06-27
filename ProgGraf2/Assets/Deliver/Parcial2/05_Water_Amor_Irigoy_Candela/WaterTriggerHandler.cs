@@ -22,7 +22,7 @@ public class WaterTriggerHandler : MonoBehaviour
         if (circle)
         {
             float force = circle.velocity.magnitude * circle.velocity.y / Mathf.Abs(circle.velocity.y);
-            _water.Splash(collision, force * 15);
+            _water.Splash(collision, force * 65);
         }
     }
 }
