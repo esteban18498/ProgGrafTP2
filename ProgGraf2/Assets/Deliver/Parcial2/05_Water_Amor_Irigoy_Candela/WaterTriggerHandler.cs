@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class WaterTriggerHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private LayerMask _waterMask;
+
+    private EdgeCollider2D _edgeCollider;
+
+    private InteractableWater _water;
+
+    private void Awake()
     {
-        
+        _edgeCollider = GetComponent<EdgeCollider2D>();
+        _water = GetComponent<InteractableWater>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        CircleController circle = collision.GetComponent<CircleController>();
+        if (circle)
+        {
+            float force = circle.velocity.magnitude * circle.velocity.y / Mathf.Abs(circle.velocity.y);
+            _water.Splash(collision, force * 15);
+        }
     }
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class CircleController : MonoBehaviour
 {
-    float speed = 5;
-    Vector3 direction;
+    float speed = 10;
+    public Vector3 direction;
+    public Vector3 velocity;
     
     void Update()
     {
@@ -26,7 +27,8 @@ public class CircleController : MonoBehaviour
             direction.x = speed;
         }
 
-        transform.position += direction * Time.deltaTime;
+        velocity = direction * Time.deltaTime;
+        transform.position += velocity;
 
         direction = Vector3.zero;
     }
